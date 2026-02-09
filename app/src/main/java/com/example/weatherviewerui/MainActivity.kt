@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +14,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -31,10 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherviewerui.ui.theme.WeatherViewerUITheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,15 +69,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WeatherView(modifier: Modifier = Modifier) {
     var city by remember {mutableStateOf("Boston")}
+    val brightBlue = Color(0xFF0096FF)
+
     Column (
-        modifier = modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier.fillMaxSize().padding(0.dp)
     ) {
-        OutlinedTextField(
+        TextField(
             value = city,
             onValueChange = {city = it},
-            label = {Text("Enter city name")},
-            modifier = Modifier.fillMaxWidth()
+            label = {Text("Enter city (e.g, Boston, MA, US)")},
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                focusedIndicatorColor = brightBlue,
+                unfocusedIndicatorColor = brightBlue,
+                focusedLabelColor = brightBlue,
+                unfocusedLabelColor = brightBlue,
+            ),
+            modifier = Modifier.fillMaxWidth(),
         )
+        //TODO: Place Checkbox(checked = true, onCheckedChange = null) in correct position
         WeatherRow(
             day = "Tuesday",
             description = "sky is clear",
