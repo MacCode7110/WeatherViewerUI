@@ -1,10 +1,14 @@
 package com.example.weatherviewerui
 
+import android.R.attr.text
+import android.R.attr.textStyle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,6 +16,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
@@ -21,6 +27,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -36,6 +43,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -79,12 +88,14 @@ fun WeatherView(modifier: Modifier = Modifier) {
         TextField(
             value = city,
             onValueChange = {city = it},
+            textStyle = TextStyle(fontSize = 18.sp),
+            modifier = Modifier.fillMaxWidth(),
             label = {Text("Enter city (e.g, Boston, MA, US)")},
             trailingIcon = {
                 Image(
                     painter = painterResource(id = R.drawable.rounded_checkmark),
                     contentDescription = "Rounded checkmark",
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(60.dp).offset(y = 27.5.dp)
                 )
             },
             colors = TextFieldDefaults.colors(
@@ -95,16 +106,71 @@ fun WeatherView(modifier: Modifier = Modifier) {
                 focusedLabelColor = brightBlue,
                 unfocusedLabelColor = brightBlue,
             ),
-            modifier = Modifier.fillMaxWidth()
         )
 
         WeatherRow(
             day = "Tuesday",
             description = "sky is clear",
-            low = "71",
-            high = "81",
+            low = "71 F",
+            high = "81 F",
             humidity = "67%",
             icon = R.drawable.weatherviewer_app_icon1
+        )
+        WeatherRow(
+            day = "Wednesday",
+            description = "sky is clear",
+            low = "66 F",
+            high = "79 F",
+            humidity = "68%",
+            icon = R.drawable.weatherviewer_app_icon1
+        )
+        WeatherRow(
+            day = "Thursday",
+            description = "sky is clear",
+            low = "63 F",
+            high = "80 F",
+            humidity = "69%",
+            icon = R.drawable.weatherviewer_app_icon1
+        )
+        WeatherRow(
+            day = "Friday",
+            description = "sky is clear",
+            low = "63 F",
+            high = "78 F",
+            humidity = "71%",
+            icon = R.drawable.weatherviewer_app_icon1
+        )
+        WeatherRow(
+            day = "Saturday",
+            description = "moderate rain",
+            low = "68 F",
+            high = "72 F",
+            humidity = "0%",
+            icon = R.drawable.weatherviewer_app_icon2
+        )
+        WeatherRow(
+            day = "Sunday",
+            description = "very heavy rain",
+            low = "65 F",
+            high = "70 F",
+            humidity = "0%",
+            icon = R.drawable.weatherviewer_app_icon2
+        )
+        WeatherRow(
+            day = "Monday",
+            description = "very heavy rain",
+            low = "58 F",
+            high = "65 F",
+            humidity = "0%",
+            icon = R.drawable.weatherviewer_app_icon2
+        )
+        WeatherRow(
+            day = "Tuesday",
+            description = "light rain",
+            low = "58 F",
+            high = "65 F",
+            humidity = "0%",
+            icon = R.drawable.weatherviewer_app_icon2
         )
     }
 }
@@ -132,13 +198,28 @@ fun WeatherRow(
             Column {
                 Text(
                     text = "$day: $description",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp,
                 )
-                Text(
-                    text = "Low: $low High: $high Humidity: $humidity",
-                    fontSize = 16.sp,
-                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Row {
+                    Text(
+                        text = "Low: $low",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                    Spacer(modifier = Modifier.width(30.dp))
+                    Text(
+                        text = "High: $high",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                    Spacer(modifier = Modifier.width(30.dp))
+                    Text(
+                        text = "Humidity: $humidity",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                }
             }
         }
     }
