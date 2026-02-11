@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
@@ -72,12 +74,19 @@ fun WeatherView(modifier: Modifier = Modifier) {
     val brightBlue = Color(0xFF0096FF)
 
     Column (
-        modifier = modifier.fillMaxSize().padding(0.dp)
+        modifier = modifier.fillMaxSize().padding(horizontal=16.dp)
     ) {
         TextField(
             value = city,
             onValueChange = {city = it},
             label = {Text("Enter city (e.g, Boston, MA, US)")},
+            trailingIcon = {
+                Image(
+                    painter = painterResource(id = R.drawable.rounded_checkmark),
+                    contentDescription = "Rounded checkmark",
+                    modifier = Modifier.size(40.dp),
+                )
+            },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -86,9 +95,9 @@ fun WeatherView(modifier: Modifier = Modifier) {
                 focusedLabelColor = brightBlue,
                 unfocusedLabelColor = brightBlue,
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
         )
-        //TODO: Place Checkbox(checked = true, onCheckedChange = null) in correct position
+
         WeatherRow(
             day = "Tuesday",
             description = "sky is clear",
