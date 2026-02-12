@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WeatherView(modifier: Modifier = Modifier) {
-    var city by remember {mutableStateOf("Boston")}
+    var city by remember {mutableStateOf("Boston, MA, US")}
     val brightBlue = Color(0xFF0096FF)
 
     Column (
